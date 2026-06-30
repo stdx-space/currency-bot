@@ -1,4 +1,4 @@
-module github.com/stommydx/narwhl/currency-bot
+module github.com/stdx-space/currency-bot
 
 go 1.25.7
 

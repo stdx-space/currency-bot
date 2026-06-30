@@ -4,8 +4,8 @@ import (
 	"testing"
 	"time"
 
-	"github.com/stommydx/narwhl/currency-bot/internal/alert"
-	"github.com/stommydx/narwhl/currency-bot/internal/wise"
+	"github.com/stdx-space/currency-bot/internal/alert"
+	"github.com/stdx-space/currency-bot/internal/wise"
 )
 
 // makeRates builds a slice of hourly rates spread across distinct days.

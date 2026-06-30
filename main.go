@@ -1,6 +1,6 @@
 package main
 
-import "github.com/stommydx/narwhl/currency-bot/cmd"
+import "github.com/stdx-space/currency-bot/cmd"
 
 func main() {
 	cmd.Execute()

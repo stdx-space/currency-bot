@@ -4,7 +4,7 @@ import (
 	"sort"
 	"time"
 
-	"github.com/stommydx/narwhl/currency-bot/internal/wise"
+	"github.com/stdx-space/currency-bot/internal/wise"
 )
 
 type Mode string

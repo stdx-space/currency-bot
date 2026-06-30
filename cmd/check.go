@@ -6,9 +6,9 @@ import (
 
 	"github.com/spf13/cobra"
 	"github.com/spf13/viper"
-	"github.com/stommydx/narwhl/currency-bot/internal/alert"
-	"github.com/stommydx/narwhl/currency-bot/internal/discord"
-	"github.com/stommydx/narwhl/currency-bot/internal/wise"
+	"github.com/stdx-space/currency-bot/internal/alert"
+	"github.com/stdx-space/currency-bot/internal/discord"
+	"github.com/stdx-space/currency-bot/internal/wise"
 )
 
 var checkCmd = &cobra.Command{
