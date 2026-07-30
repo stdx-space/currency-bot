@@ -30,6 +30,7 @@ func runCheck(_ *cobra.Command, _ []string) error {
 	alertDays := viper.GetInt("alert-days")
 	dryRun := viper.GetBool("dry-run")
 
+	referenceAmount := viper.GetFloat64("reference-amount")
 	if !dryRun && webhookURL == "" {
 		return fmt.Errorf("--webhook-url is required (or set CURRENCY_BOT_WEBHOOK_URL); use --dry-run to skip sending")
 	}
@@ -53,7 +54,7 @@ func runCheck(_ *cobra.Command, _ []string) error {
 		return nil
 	}
 
-	title, description, color := buildMessage(source, target, result, alertDays)
+	title, description, color := buildMessage(source, target, result, alertDays, referenceAmount)
 
 	if dryRun {
 		fmt.Printf("[dry-run] %s\n%s\n", title, description)
@@ -68,7 +69,7 @@ func runCheck(_ *cobra.Command, _ []string) error {
 }
 
 // buildMessage constructs the Discord embed content.
-func buildMessage(source, target string, r alert.Result, alertDays int) (title, description string, color int) {
+func buildMessage(source, target string, r alert.Result, alertDays int, referenceAmount float64) (title, description string, color int) {
 	pair := fmt.Sprintf("%s → %s", source, target)
 	color = 0x5865F2 // default Discord blurple
 
@@ -84,13 +85,15 @@ func buildMessage(source, target string, r alert.Result, alertDays int) (title, 
 	} else {
 		tag = "💱 Rate Update"
 	}
-
 	title = fmt.Sprintf("%s  %s", tag, pair)
+
 	reciprocal := 1.0 / r.Current
+	equivalent := referenceAmount / r.Current
 	description = fmt.Sprintf(
-		"**Current rate:** `%.6f` (%s per %s) / `%.6f` (%s per %s)\n**%d-day high threshold:** `%.6f`\n**%d-day low threshold:** `%.6f`",
+		"**Current rate:** `%.6f` (%s per %s) / `%.6f` (%s per %s)\n**%.0f %s ≈ %.2f %s**\n**%d-day high threshold:** `%.6f`\n**%d-day low threshold:** `%.6f`",
 		r.Current, target, source,
 		reciprocal, source, target,
+		referenceAmount, target, equivalent, source,
 		alertDays, r.ThresholdHi,
 		alertDays, r.ThresholdLo,
 	)

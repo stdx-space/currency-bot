@@ -13,9 +13,9 @@ currency-bot resolves configuration in this priority order (highest wins):
 
 | Flag | Env var | Default | Description |
 |---|---|---|---|
-| `--source` | `CURRENCY_BOT_SOURCE` | `HKD` | Source currency code |
-| `--target` | `CURRENCY_BOT_TARGET` | `CAD` | Target currency code |
-| `--length` | `CURRENCY_BOT_LENGTH` | `30` | History window in days |
+| `--source` | `CURRENCY_BOT_SOURCE` | `CAD` | Source currency code |
+| `--target` | `CURRENCY_BOT_TARGET` | `HKD` | Target currency code |
+| `--reference-amount` | `CURRENCY_BOT_REFERENCE_AMOUNT` | `294` | Reference amount in target currency shown in the alert (e.g. `294` displays as `294 CAD ≈ X HKD`) |
 | `--webhook-url` | `CURRENCY_BOT_WEBHOOK_URL` | _(none)_ | Discord webhook URL. Required unless `--dry-run` is set |
 | `--alert-mode` | `CURRENCY_BOT_ALERT_MODE` | `always` | When to send an alert. See [Alert Modes](#alert-modes) |
 | `--alert-days` | `CURRENCY_BOT_ALERT_DAYS` | `3` | X in "within highest/lowest X days" |
@@ -43,9 +43,9 @@ The threshold is derived from the **daily maximum rate** for each day in the his
 Place a YAML file at `~/.currency-bot.yaml` (or pass `--config <path>`):
 
 ```yaml
-source: HKD
-target: CAD
-length: 30
+source: CAD
+target: HKD
+reference-amount: 294
 webhook-url: "https://discord.com/api/webhooks/YOUR_ID/YOUR_TOKEN"
 alert-mode: maxima
 alert-days: 7
@@ -60,7 +60,7 @@ schedule: "0 9,21 * * *"
 ## Examples
 
 ```bash
-# Always alert, HKD→CAD, default 30-day window
+# Always alert, CAD→HKD, default 30-day window
 currency-bot check --webhook-url https://discord.com/api/webhooks/...
 
 # Alert only near 7-day highs
