@@ -31,6 +31,7 @@ func init() {
 	// Shared flags available to all sub-commands.
 	rootCmd.PersistentFlags().String("source", "CAD", "source currency code")
 	rootCmd.PersistentFlags().String("target", "HKD", "target currency code")
+	rootCmd.PersistentFlags().Int("length", 30, "history window in days")
 	rootCmd.PersistentFlags().Float64("reference-amount", 294, "reference amount in target currency shown in the alert (e.g. 294 displays as '294 CAD ≈ X HKD')")
 	rootCmd.PersistentFlags().String("webhook-url", "", "Discord webhook URL (required unless --dry-run)")
 	rootCmd.PersistentFlags().String("alert-mode", "always", "alert mode: always | maxima | minima")
@@ -40,8 +41,9 @@ func init() {
 	viper.BindPFlag("source", rootCmd.PersistentFlags().Lookup("source"))
 	viper.BindPFlag("target", rootCmd.PersistentFlags().Lookup("target"))
 	viper.BindPFlag("length", rootCmd.PersistentFlags().Lookup("length"))
-	viper.BindPFlag("webhook-url", rootCmd.PersistentFlags().Lookup("webhook-url"))
 	viper.BindPFlag("reference-amount", rootCmd.PersistentFlags().Lookup("reference-amount"))
+	viper.BindPFlag("webhook-url", rootCmd.PersistentFlags().Lookup("webhook-url"))
+	viper.BindPFlag("alert-mode", rootCmd.PersistentFlags().Lookup("alert-mode"))
 	viper.BindPFlag("alert-days", rootCmd.PersistentFlags().Lookup("alert-days"))
 	viper.BindPFlag("dry-run", rootCmd.PersistentFlags().Lookup("dry-run"))
 
@@ -49,6 +51,7 @@ func init() {
 	viper.SetDefault("target", "HKD")
 	viper.SetDefault("length", 30)
 	viper.SetDefault("reference-amount", 294)
+	viper.SetDefault("alert-mode", "always")
 	viper.SetDefault("alert-days", 3)
 }
 

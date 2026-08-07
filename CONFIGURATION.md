@@ -15,6 +15,7 @@ currency-bot resolves configuration in this priority order (highest wins):
 |---|---|---|---|
 | `--source` | `CURRENCY_BOT_SOURCE` | `CAD` | Source currency code |
 | `--target` | `CURRENCY_BOT_TARGET` | `HKD` | Target currency code |
+| `--length` | `CURRENCY_BOT_LENGTH` | `30` | History window in days |
 | `--reference-amount` | `CURRENCY_BOT_REFERENCE_AMOUNT` | `294` | Reference amount in target currency shown in the alert (e.g. `294` displays as `294 CAD ≈ X HKD`) |
 | `--webhook-url` | `CURRENCY_BOT_WEBHOOK_URL` | _(none)_ | Discord webhook URL. Required unless `--dry-run` is set |
 | `--alert-mode` | `CURRENCY_BOT_ALERT_MODE` | `always` | When to send an alert. See [Alert Modes](#alert-modes) |
